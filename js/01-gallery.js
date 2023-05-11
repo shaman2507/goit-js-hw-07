@@ -25,22 +25,23 @@ galleryEl.addEventListener("click", addItemClassList)
 
 function addItemClassList(e) {
     e.preventDefault()
-    if (e.target.classList.contains("gallery_image")) {
+    if (!e.target.classList.contains("gallery_image")) {
         return;
     }
     console.log(e.target)
-}
 
-const instance = basicLightbox.create('<img src="${e.target.galleryEl}" width="800" height="600">',
-{
-    onShow: () => document.addEventListener("keydown", onCloseModal),
-    onClose: () => document.removeEventListener("keydown", onCloseModal),
-})
 
-instance.show();
+    const instance = basicLightbox.create(`<img src="${e.target.dataset.source}" width="800" height="600">`,
+        {
+            onShow: () => document.addEventListener("keydown", onCloseModal),
+            onClose: () => document.removeEventListener("keydown", onCloseModal),
+        })
 
-function onCloseModal(event) {
-    if (event.code === "Escape") {
-        instance.close();
+    instance.show();
+
+    function onCloseModal(event) {
+        if (event.code === "Escape") {
+            instance.close();
+        }
     }
 }
